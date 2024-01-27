@@ -8,7 +8,9 @@ function WebPlayer (props) {
             src={playlistId}
             width="100%"
             height="100%"
-            style={{ minHeight: '100%' }}
+            style={{ minHeight: '750px',
+            maxWidth: '400px'
+           }}
             allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
             loading="lazy"
         />
