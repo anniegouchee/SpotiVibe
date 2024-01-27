@@ -72,47 +72,6 @@ def receive_image(image):
     image = base64_to_image(image)
     print(detect_mood(image))
 
-    # frame = cv2.imread(image)
 
-
-"""    frame = image
-    faceCascade = cv2.CascadeClassifier(cv2.data.haarcascades + 'haarcascade_frontalface_default.xml')
-    gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
-    faces = faceCascade.detectMultiScale(gray, 1.1, 4)
-    final_image = frame
-    for x,y,w,h in faces:
-        roi_gray = gray[y:y+h, x:x+w]
-        roi_color = frame[y:y+h, x:x+w]
-        cv2.rectangle(frame, (x,y), (x+w, y+h), (255, 0,0), 2)
-        facess = faceCascade.detectMultiScale(roi_gray)
-        if len(facess) == 0:
-            print("Face not detected")
-        else:
-            for (ex, ey, ew, eh) in facess:
-                face_roi = roi_color[ey: ey+eh, ex:ex + ew]
-
-            final_image = cv2.resize(frame, (224, 224))
-            final_image = np.expand_dims(final_image, axis =0)
-            final_image = final_image/255.0 #normalise
-            Prediction = new_model.predict(final_image)
-            print(Prediction)
-            print(np.argmax(Prediction[0]))
-
-    # Perform image processing using OpenCV
-    #gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
-    #frame_resized = cv2.resize(final_image, (224, 224))
-
-    # Encode the processed image as a JPEG-encoded base64 string
-    #encode_param = [int(cv2.IMWRITE_JPEG_QUALITY), 90]
-    #result, frame_encoded = cv2.imencode(".jpg", final_image, encode_param)
-    #processed_img_data = base64.b64encode(frame_encoded).decode()
-
-    # Prepend the base64-encoded string with the data URL prefix
-    #b64_src = "data:image/jpg;base64,"
-    #processed_img_data = b64_src + processed_img_data
-
-    # Send the processed image back to the client
-    #emit("processed_image", processed_img_data)
-"""
 if __name__ == "__main__":
     socketio.run(app, debug=True, port=4999, host="0.0.0.0")
