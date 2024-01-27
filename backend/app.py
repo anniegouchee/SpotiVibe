@@ -3,7 +3,7 @@ import tensorflow as tf
 from flask_socketio import SocketIO, emit
 import base64, os, cv2
 import numpy as np
-from song_recomender import recommend_songs_for_mood
+from song_recommender import recommend_songs_for_mood
 import config
 
 FACE_DETECTION_XML = config.FACE_DETECTION_XML
