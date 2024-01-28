@@ -141,9 +141,7 @@ def store_face(image: str, user: str):
     known_face_names.append(user)
 
 
-socketio.on("recognize")
-
-
+@socketio.on("recognize")
 def find_face(frame):
     """
     args:
