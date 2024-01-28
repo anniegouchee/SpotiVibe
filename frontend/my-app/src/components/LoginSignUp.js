@@ -6,7 +6,7 @@ import Picture from "../assets/cute.png"
 import { useNavigate } from "react-router-dom";
 
 
-function LoginSignUp() {
+function LoginSignUp({ socket, setAccessToken }) {
 
   return (
     <div >
@@ -20,7 +20,7 @@ function LoginSignUp() {
             <div style={{height:7}}/>
 
             <div style={{padding:30}}>
-                <Login />
+                <Login socket={socket}/>
             </div>
             {/* <hr></hr> */}
             <div style={{textAlign:"center", overflow:"hidden"}}>
@@ -28,7 +28,7 @@ function LoginSignUp() {
             </div>
 
             <div style={{padding:30}}>
-                <SignUp />        
+                <SignUp socket={socket} setAccessToken={setAccessToken}/>        
             </div>
             </div>
         </div>

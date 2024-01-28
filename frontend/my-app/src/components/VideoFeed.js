@@ -66,20 +66,17 @@ function VideoFeed({ socket, accessToken, moodSetter, songSetter}) {
           justifyContent: 'center', 
           alignItems: 'center',
           height: '100vh',
-          backgroundColor: '#004225'
         }}>
-          <div style={{ position: 'relative', width: '400px', textAlign: 'center' }}>
-            <video ref={videoRef} id="videoElement" width="400" height="300" autoPlay />
-            <canvas ref={canvasRef} width="400" height="300" style={{ display: 'none' }} />
-            {photoSrc && <img src={photoSrc} alt="Processed" style={{ width: '400px', height: '300px' }} />}
-      
+          <div style={{ position: 'relative', width: '100%', textAlign: 'center', maxHeight: 'calc(100vh)' }}>
+            <video ref={videoRef} id="videoElement" width="100%" height="100%" autoPlay />
+            <canvas ref={canvasRef} width="100%" height="100%" style={{ display: 'none' }} />
+            {photoSrc && <img src={photoSrc} alt="Processed" style={{ width: '100%', height: '100%' }} />}
             <div style={{ position: 'absolute', top: '20px', left: '20px', zIndex: 1 }}>
-              <p style={{ color: 'white', fontSize: '16px' }}>Mood: {mood}</p>
+              <p style={{ color: 'green', fontSize: '16px' }}>Mood: {mood}</p>
             </div>
           </div>
         </div>
-      );      
-         
+    ); 
 }
 
 export default VideoFeed

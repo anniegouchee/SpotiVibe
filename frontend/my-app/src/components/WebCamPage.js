@@ -1,7 +1,6 @@
 import React,{ useState, useEffect } from "react";
 import WebPlayer from './WebPlayer'
-
-import { createPlaylist } from "./GetSongs";
+import playlists from '../data/playlists'
 import MenuAppBar from "./MenuAppBar";
 import VideoFeed from "./VideoFeed";
 
@@ -11,33 +10,24 @@ function WebCamPage({ socket, accessToken }) {
   const [songs, setSongs]= useState([]);
 
   useEffect(() => {
-    const playlistID = createPlaylist(songs);
-    console.log(`Playlist URL for ${mood}: ${playlistID}`);
-    setplaylistId(playlistID);
+    setplaylistId(playlists[mood]);
   }, [songs, mood]);
 
   return (
     <div>
       <MenuAppBar />
-      <div
-        style={{
-          backgroundColor: '#004225',
-          display: 'flex',
-          flexDirection: 'row',
-          justifyContent: 'center', // Center horizontally
-          alignItems: 'center',    // Center vertically
-          padding: '20px'          // Add space between components
-        }}
-      >
-        <div style={{ margin: '10px' }}>
-          <VideoFeed socket={socket} accessToken={accessToken} moodSetter={setMood} songSetter={setSongs}/>
-        </div>
-        <div style={{ margin: '10px' }}>
-          <WebPlayer playlistId={playlistId} playlistTitle={'Something'} />
+      <div style={{ display: 'flex', flexDirection: 'column' }}>
+        <div style={{ display: 'flex', flexDirection: 'row', alignItems: 'stretch' }}>
+          <div style={{ flex: '1', maxHeight: '100vh' }}>
+            <VideoFeed socket={socket} accessToken={accessToken} moodSetter={setMood} songSetter={setSongs} />
+          </div>
+          <div>
+            <WebPlayer playlistId={playlistId} playlistTitle={'Something'} />
+          </div>
         </div>
       </div>
     </div>
-  );
+  ); 
 }
 
 export default WebCamPage;
