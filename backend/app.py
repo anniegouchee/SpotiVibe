@@ -4,7 +4,8 @@ from flask_socketio import SocketIO, emit
 import base64, os, cv2
 import numpy as np
 from song_recommender import recommend_songs_for_mood
-import config, face_recognition
+import config
+import face_recognition
 
 FACE_DETECTION_XML = config.FACE_DETECTION_XML
 MODEL_COMPILATION = tf.keras.models.load_model(config.MODEL_COMPILATION)
@@ -20,7 +21,6 @@ mood_history = {
     "tired": 0,
     "total": 0,
 }
-
 
 def detect_mood(frame):
     faceCascade = cv2.CascadeClassifier(cv2.data.haarcascades + FACE_DETECTION_XML)
@@ -69,12 +69,10 @@ def base64_to_image(base64_string):
     image = cv2.imdecode(image_array, cv2.IMREAD_COLOR)
     return image
 
-
 @socketio.on("connect")
 def test_connect():
     print("Connected")
     emit("my response", {"data": "Connected"})
-
 
 @socketio.on("image")
 def receive_image(image):
@@ -113,7 +111,6 @@ def receive_image(image):
 
 @socketio.on("spotify_token")
 def receive_token(spotify_token):
-    print(spotify_token)
     global global_spotify_token
     global_spotify_token = spotify_token
 
@@ -121,24 +118,22 @@ def receive_token(spotify_token):
 # CODE FOR FACIAL_RECOGNITION
 known_face_encodings = []
 known_face_names = []
+paths = []
 
+@socketio.on("store_user")
+def store_face(user: str):
+    path = os.path.join(os.curdir, f"{user}.jpg")
+    known_face_names.append(user)
+    paths.append(path)
 
-@socketio.on("store")
-def store_face(args: dict):
-    """
-    args:
-        image: dict
-    """
-    image = args["image"]
-    user = args["user"]
+@socketio.on("store_image")
+def store_face(image: str):
     image = base64_to_image(image)
-    path = os.path.join(os.curdir(), f"{user}.jpg")
-    cv2.imwrite(path, image)
-    known_image = face_recognition.load_image_file(path)
+    cv2.imwrite(paths[-1], image)
+    known_image = face_recognition.load_image_file(paths[-1])
     img_encoding = face_recognition.face_encodings(known_image)[0]
     known_face_encodings.append(img_encoding)
-    known_face_names.append(user)
-
+    emit("face_name", known_face_names[-1])
 
 @socketio.on("recognize")
 def find_face(frame):
@@ -191,9 +186,8 @@ def find_face(frame):
         )
         font = cv2.FONT_HERSHEY_DUPLEX
         cv2.putText(frame, name, (left + 6, bottom - 6), font, 1.0, (255, 255, 255), 1)
-    # Display the resulting image
-    # cv2.imshow("Video", frame)
-    emit({"names": face_names, "image": frame})
+    emit('login_result', {"names": face_names[0]})
+
 
 
 if __name__ == "__main__":
