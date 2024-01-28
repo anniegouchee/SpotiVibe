@@ -124,14 +124,13 @@ known_face_names = []
 
 
 @socketio.on("store")
-def store_face(image: str, user: str):
+def store_face(args: dict):
     """
     args:
-        image: str
-            filepath to image
-        user: str
-            user/person associated with that image
+        image: dict
     """
+    image = args["image"]
+    user = args["user"]
     image = base64_to_image(image)
     path = os.path.join(os.curdir(), f"{user}.jpg")
     cv2.imwrite(path, image)
