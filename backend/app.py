@@ -9,7 +9,18 @@ import config
 FACE_DETECTION_XML = config.FACE_DETECTION_XML
 MODEL_COMPILATION = tf.keras.models.load_model(config.MODEL_COMPILATION)
 SPOTIFY_TOKEN = config.SPOTIFY_TOKEN
-mood_dict = ["angry", "tried", "fear", "happy", "sad", "excited", "neutral"]
+mood_dict = ["angry", "tired", "fear", "happy", "sad", "excited", "neutral"]
+
+mood_history = {
+    "angry": 0,
+    "tired": 0,
+    "fear": 0,
+    "happy": 0,
+    "sad": 0,
+    "excited": 0,
+    "neutral": 0,
+    "total": 0,
+}
 
 
 def detect_mood(frame):
@@ -34,8 +45,8 @@ def detect_mood(frame):
         Predictions = MODEL_COMPILATION.predict(final_image)
 
         status = mood_dict[np.argmax(Predictions)]
-        recommended_songs = recommend_songs_for_mood(status, SPOTIFY_TOKEN)
-        return recommended_songs, status
+        # recommended_songs = recommend_songs_for_mood(status, SPOTIFY_TOKEN)
+        return status
 
 
 app = Flask(__name__, static_folder="./templates/static")
@@ -70,7 +81,27 @@ def test_connect():
 def receive_image(image):
     # Decode the base64-encoded image data
     image = base64_to_image(image)
-    print(detect_mood(image))
+
+    mood = detect_mood(image)
+    if mood:
+        mood_history[mood] += 1
+        mood_history["total"] += 1
+        mood_percentage = {
+            "angry": 0,
+            "tired": 0,
+            "fear": 0,
+            "happy": 0,
+            "sad": 0,
+            "excited": 0,
+            "neutral": 0,
+        }
+        total = mood_history["total"]
+        for key in mood_history.keys():
+            if key == "total":
+                continue
+            mood_percentage[key] = mood_history[key] / total
+        print(mood_percentage)
+        return mood, mood_percentage
 
 
 if __name__ == "__main__":
