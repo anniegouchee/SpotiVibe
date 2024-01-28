@@ -3,7 +3,7 @@ from tensorflow import keras
 from tensorflow.keras import layers
 import cv2, os, random
 
-# import matplotlib.pyplot as plt
+import matplotlib.pyplot as plt
 import numpy as np
 
 from PIL import Image
@@ -95,3 +95,5 @@ new_model.compile(
 )
 # train the model
 new_model.fit(X, Y, epochs=20)
+
+new_model.save("./emotion_model.h5", save_format='h5')
