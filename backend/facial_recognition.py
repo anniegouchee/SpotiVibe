@@ -5,7 +5,14 @@ known_face_encodings = []
 known_face_names = []
 
 
-def store_face(image, user):
+def store_face(image: str, user: str):
+    """
+    args:
+        image: str
+            filepath to image
+        user: str
+            user/person associated with that image
+    """
     known_image = face_recognition.load_image_file(image)
     img_encoding = face_recognition.face_encodings(known_image)[0]
     known_face_encodings.append(img_encoding)
@@ -13,6 +20,11 @@ def store_face(image, user):
 
 
 def find_face(frame):
+    """
+    args:
+        frame:
+            finds faces from existing fraces in the db
+    """
     face_locations = []
     face_encodings = []
     face_names = []
