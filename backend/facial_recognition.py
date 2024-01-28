@@ -1,6 +1,6 @@
 import face_recognition, cv2
 import numpy as np
-import base64
+import base64, os
 
 known_face_encodings = []
 known_face_names = []
@@ -27,7 +27,10 @@ def store_face(image: str, user: str):
         user: str
             user/person associated with that image
     """
-    known_image = face_recognition.load_image_file(image)
+    image = base64_to_image(image)
+    path = os.path.join(os.curdir(), f"{user}.jpg")
+    cv2.imwrite(path, image)
+    known_image = face_recognition.load_image_file(path)
     img_encoding = face_recognition.face_encodings(known_image)[0]
     known_face_encodings.append(img_encoding)
     known_face_names.append(user)
