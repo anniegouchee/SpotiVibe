@@ -128,10 +128,6 @@ def store_face(user: str):
 
 @socketio.on("store_image")
 def store_face(image: str):
-    """
-    args:
-        image: dict
-    """
     image = base64_to_image(image)
     cv2.imwrite(paths[-1], image)
     known_image = face_recognition.load_image_file(paths[-1])
@@ -191,6 +187,7 @@ def find_face(frame):
         font = cv2.FONT_HERSHEY_DUPLEX
         cv2.putText(frame, name, (left + 6, bottom - 6), font, 1.0, (255, 255, 255), 1)
     emit('login_result', {"names": face_names[0]})
+
 
 
 if __name__ == "__main__":
