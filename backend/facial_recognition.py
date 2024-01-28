@@ -1,8 +1,22 @@
 import face_recognition, cv2
 import numpy as np
+import base64
 
 known_face_encodings = []
 known_face_names = []
+
+
+# TODO Same function as in app.py just put here for portability
+def base64_to_image(base64_string):
+    # Extract the base64 encoded binary data from the input string
+    base64_data = base64_string.split(",")[1]
+    # Decode the base64 data to bytes
+    image_bytes = base64.b64decode(base64_data)
+    # Convert the bytes to numpy array
+    image_array = np.frombuffer(image_bytes, dtype=np.uint8)
+    # Decode the numpy array as an image using OpenCV
+    image = cv2.imdecode(image_array, cv2.IMREAD_COLOR)
+    return image
 
 
 def store_face(image: str, user: str):
@@ -28,7 +42,8 @@ def find_face(frame):
     face_locations = []
     face_encodings = []
     face_names = []
-    frame = cv2.imread(frame)
+    # frame = cv2.imread(frame)
+    frame = base64_to_image(frame)
     small_frame = cv2.resize(frame, (0, 0), fx=0.25, fy=0.25)
 
     # Convert the image from BGR color (which OpenCV uses) to RGB color (which face_recognition uses)
