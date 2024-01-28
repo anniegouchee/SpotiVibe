@@ -1,33 +1,41 @@
 import React,{ useState, useEffect } from "react";
 import WebPlayer from './WebPlayer'
-import { createPlaylist } from "./GetSongs";
-import playlists from "../data/playlists";
-import MenuAppBar from "./MenuAppBar";
 
-function WebCamPage() {
+import { createPlaylist } from "./GetSongs";
+import MenuAppBar from "./MenuAppBar";
+import VideoFeed from "./VideoFeed";
+
+function WebCamPage({ socket, accessToken }) {
   const [playlistId, setplaylistId] = useState('https://open.spotify.com/embed/playlist/2VU6rmEdlLPOmmYPSXXfRM?utm_source=generator&theme=0');
   const [mood, setMood]= useState('Neutral')
+  const [songs, setSongs]= useState([]);
 
   useEffect(() => {
-    const playlistID = playlists[mood];
+    const playlistID = createPlaylist(songs);
     console.log(`Playlist URL for ${mood}: ${playlistID}`);
     setplaylistId(playlistID);
-  }, [mood]); // The dependency array ensures the effect runs when mood changes
-
-
-  const handleMoodChange = (newMood) => {
-    setMood(newMood);
-  }
+  }, [songs, mood]);
 
   return (
     <div>
       <MenuAppBar />
-      <WebPlayer
-        playlistId={playlistId}
-        playlistTitle={'Something'}
-      />
-    <button onClick= {() => handleMoodChange('Sad')}>Button</button>
-
+      <div
+        style={{
+          backgroundColor: '#004225',
+          display: 'flex',
+          flexDirection: 'row',
+          justifyContent: 'center', // Center horizontally
+          alignItems: 'center',    // Center vertically
+          padding: '20px'          // Add space between components
+        }}
+      >
+        <div style={{ margin: '10px' }}>
+          <VideoFeed socket={socket} accessToken={accessToken} moodSetter={setMood} songSetter={setSongs}/>
+        </div>
+        <div style={{ margin: '10px' }}>
+          <WebPlayer playlistId={playlistId} playlistTitle={'Something'} />
+        </div>
+      </div>
     </div>
   );
 }
