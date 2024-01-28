@@ -3,13 +3,9 @@ body {
     padding: 0;
 }
 
-.navbar {
-    background-color: #333; /* Set your desired background color */
-    padding: 10px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
+nav {
+    box-shadow: 0 2px 4px 0 rgba(0,0,0,.2);
+  }
 
 .icon {
     max-width: 50px;
