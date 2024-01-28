@@ -1,11 +1,14 @@
 import React,{ useState, useEffect } from "react";
-import { TextField, Button } from "@mui/material";
+import { TextField, Button, Typography, Box, Modal } from "@mui/material";
 import './SignUp.css'
+import CustomWebcam from "./CustomWebcam";
 
 
 function SignUp() {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
+    const [open, setOpen] = React.useState(false);
+
 
     const handleEmailChange = (event) => {
         setEmail(event.target.value);
@@ -18,9 +21,22 @@ function SignUp() {
     const handleSignup = () => {
         //console.log(email);
         //console.log(password); 
+        setOpen(true);
         setEmail('');
         setPassword('');
     };
+
+    const closeModal = () => setOpen(false);
+
+    const style = {
+        position: 'absolute',
+        top: '50%',
+        left: '50%',
+        transform: 'translate(-50%, -50%)',
+        width: 1000,
+        bgcolor: 'background.paper',
+        p: 4,
+      };
 
 
   return (
@@ -43,10 +59,21 @@ function SignUp() {
               <div className="submit">
                         <Button  variant="contained" color="primary" disableElevation
                         onClick={handleSignup}>
-                            SIGNUP       
+                            SIGN UP       
                         </Button>
-            </div>:
+            </div>
           </div>
+
+          <Modal
+              open={open}
+              aria-labelledby="modal-modal-title"
+              aria-describedby="modal-modal-description"
+          >
+              <Box sx={style}>
+              <CustomWebcam onClose={closeModal} />
+
+              </Box>
+          </Modal>
 
     </div>
 
