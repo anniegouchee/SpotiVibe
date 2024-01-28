@@ -75,7 +75,7 @@ def recommend_songs_for_mood(mood, token):
     if response.status_code == 200:
         recommendations = response.json()["tracks"]
         return [
-            f"{track['name']} by {', '.join(artist['name'] for artist in track['artists'])}"
+            f"{track['uri']}"
             for track in recommendations
         ]
     else:
