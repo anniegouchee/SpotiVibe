@@ -96,4 +96,4 @@ new_model.compile(
 # train the model
 new_model.fit(X, Y, epochs=20)
 
-new_model.save("./emotion_model.h5", save_format='h5')
+new_model.save("./emotion_model_full.h5", save_format='h5')
