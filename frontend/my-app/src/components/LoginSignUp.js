@@ -3,9 +3,10 @@ import LoginBar from "./LoginBar";
 import SignUp from "./SignUp";
 import Login from "./Login";
 import Picture from "../assets/cute.png"
+import { useNavigate } from "react-router-dom";
+
 
 function LoginSignUp() {
-
 
   return (
     <div >

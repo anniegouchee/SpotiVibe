@@ -1,18 +1,20 @@
 import React,{ useState, useEffect } from "react";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+
 import './App.css';
-import WebCamPage from "./components/WebCamPage";
-import Login from "./components/Login"; 
 import LoginSignUp from "./components/LoginSignUp";
+import WebCamPage from "./components/WebCamPage";
 
 function App() {
 
 
   return (
-    <div>
-
-    {/* <WebCamPage /> */}
-    <LoginSignUp />
-    </div>
+    <Router>
+      <Routes>
+        <Route path="/" element={<LoginSignUp />} />
+        <Route path="/home" element={<WebCamPage />} />
+      </Routes>
+    </Router>
   );
 }
 

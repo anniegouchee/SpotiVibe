@@ -1,13 +1,15 @@
 import React,{ useState, useEffect } from "react";
 import { Button, Modal, Box } from "@mui/material";
 import CustomWebcam from "./CustomWebcam";
+import { useNavigate } from "react-router-dom";
 
 function Login() {
     const [open, setOpen] = React.useState(false);
+    const navigate = useNavigate();
 
     const handleLogin = () => {
         setOpen(true);
-
+        navigate("/home");
     };
 
 
