@@ -9,16 +9,15 @@ import config
 FACE_DETECTION_XML = config.FACE_DETECTION_XML
 MODEL_COMPILATION = tf.keras.models.load_model(config.MODEL_COMPILATION)
 SPOTIFY_TOKEN = config.SPOTIFY_TOKEN
-mood_dict = ["angry", "tired", "fear", "happy", "sad", "excited", "neutral"]
+mood_dict = ["angry", "excited", "happy", "neutral", "sad", "tired"]
 
 mood_history = {
     "angry": 0,
-    "tired": 0,
-    "fear": 0,
-    "happy": 0,
-    "sad": 0,
     "excited": 0,
+    "happy": 0,
     "neutral": 0,
+    "sad": 0,
+    "tired": 0,
     "total": 0,
 }
 
@@ -88,12 +87,12 @@ def receive_image(image):
         mood_history["total"] += 1
         mood_percentage = {
             "angry": 0,
-            "tired": 0,
-            "fear": 0,
-            "happy": 0,
-            "sad": 0,
             "excited": 0,
+            "happy": 0,
             "neutral": 0,
+            "sad": 0,
+            "tired": 0,
+            "total": 0,
         }
         total = mood_history["total"]
         for key in mood_history.keys():
