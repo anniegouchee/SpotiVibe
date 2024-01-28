@@ -1,0 +1,25 @@
+body {
+    margin: 0;
+    padding: 0;
+}
+
+.navbar {
+    background-color: #333; /* Set your desired background color */
+    padding: 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.icon {
+    max-width: 50px;
+    max-height: 50px;
+}
+
+.logo img {
+    width: 20px; /* Set your desired width */
+    height: auto; /* Maintain aspect ratio */
+}
+.accountIcon {
+    margin-right: 10px; /* Add margin to create space between the icon and the logo */
+  }

@@ -3,6 +3,7 @@ import './App.css';
 import WebPlayer from './components/WebPlayer'
 import { createPlaylist } from "./components/GetSongs";
 import playlists from "./data/playlists";
+import MenuAppBar from "./components/MenuAppBar";
 
 function App() {
   const [playlistId, setplaylistId] = useState('https://open.spotify.com/embed/playlist/2VU6rmEdlLPOmmYPSXXfRM?utm_source=generator&theme=0');
@@ -21,6 +22,7 @@ function App() {
 
   return (
     <div>
+      <MenuAppBar />
       <WebPlayer
         playlistId={playlistId}
         playlistTitle={'Something'}
