@@ -44,7 +44,7 @@ def detect_mood(frame):
         Predictions = MODEL_COMPILATION.predict(final_image)
 
         status = mood_dict[np.argmax(Predictions)]
-        recommended_songs = recommend_songs_for_mood(status, SPOTIFY_TOKEN)
+        recommended_songs = recommend_songs_for_mood(status, global_spotify_token)
         return status, recommended_songs
 
 
